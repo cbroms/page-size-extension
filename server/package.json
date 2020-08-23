@@ -1,0 +1,30 @@
+{
+  "name": "page-size-extension-server",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "dev": "nodemon index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/cbroms/page-size-extension.git"
+  },
+  "author": "Christian Broms",
+  "license": "Apache-2.0",
+  "bugs": {
+    "url": "https://github.com/cbroms/page-size-extension/issues"
+  },
+  "homepage": "https://github.com/cbroms/page-size-extension#readme",
+  "dependencies": {
+    "atob": "^2.1.2",
+    "body-parser": "^1.19.0",
+    "btoa": "^1.2.1",
+    "express": "^4.17.1",
+    "redis": "^3.0.2"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.4"
+  }
+}
