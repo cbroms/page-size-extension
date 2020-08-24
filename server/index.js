@@ -17,10 +17,8 @@ const checkAndPrepareUrl = (url, res) => {
     // verify there's a URL and it's valid
     if (!url) {
         res.status(400).send("No URL specified");
-        return;
     } else if (!utils.isValidHttpUrl(url)) {
         res.status(400).send("Not a valid URL");
-        return;
     }
 
     // clean the URL and extract the domain
@@ -64,8 +62,10 @@ app.post("/post_metrics", (req, res) => {
         client.get(cleanUrl, (err, uVal) => {
             // if the data doesn't exist, add it
             if (!uVal) {
-                const toSave = { ...data };
-                toSave["lastChecked"] = new Date().toISOString();
+                const toSave = {
+                    data: { ...data },
+                    lastChecked: new Date().toISOString(),
+                };
                 client.set(cleanUrl, JSON.stringify(toSave));
             } else {
                 // we should probably update the data at some point
@@ -75,10 +75,13 @@ app.post("/post_metrics", (req, res) => {
         client.get(domain, (err, dVal) => {
             // if the data doesn't exist, add it
             if (!dVal) {
-                const toSave = {};
-                toSave["script"] = data["script"] || {};
-                toSave["stylesheet"] = data["stylesheet"] || {};
-                toSave["lastChecked"] = new Date().toISOString();
+                const toSave = {
+                    data: {},
+                    lastChecked: new Date().toISOString(),
+                };
+                toSave.data["script"] = data["script"] || {};
+                toSave.data["stylesheet"] = data["stylesheet"] || {};
+
                 client.set(domain, JSON.stringify(toSave));
             } else {
                 // we should probably update the data at some point
