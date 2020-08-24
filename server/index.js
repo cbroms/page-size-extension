@@ -50,7 +50,7 @@ app.get("/get_metrics", (req, res) => {
 // submit js metrics for a given url
 // expects json body --> {url: "", data: {}}
 // where body.data contains any of the keys listed here:
-// https://developer.mozilla.org/en-US/docs/Mozilla/Add-ons/WebExtensions/API/webRequest/ResourceType
+// https://github.com/cbroms/page-size-extension/blob/master/README.md#recorded-resource-types
 app.post("/post_metrics", (req, res) => {
     let url = req.body.url;
     let data = req.body.data;
