@@ -19,13 +19,14 @@ const checkAndPrepareUrl = (url, res) => {
         res.status(400).send("No URL specified");
     } else if (!utils.isValidHttpUrl(url)) {
         res.status(400).send("Not a valid URL");
+    } else {
+        // clean the URL and extract the domain
+        const cleanUrl = utils.cleanUrl(url);
+        const domain = utils.getHostnameFromUrl(url);
+
+        return [cleanUrl, domain];
     }
-
-    // clean the URL and extract the domain
-    const cleanUrl = utils.cleanUrl(url);
-    const domain = utils.getHostnameFromUrl(url);
-
-    return [cleanUrl, domain];
+    return [null, null];
 };
 
 // get js metrics for a given url and its domain, if they exist
@@ -35,15 +36,20 @@ app.get("/get_metrics", (req, res) => {
 
     const [cleanUrl, domain] = checkAndPrepareUrl(url, res);
 
-    // get the values for the url and the domain
-    try {
-        client.get(cleanUrl, (err, uVal) => {
-            client.get(domain, (err, dVal) => {
-                res.json({ url: JSON.parse(uVal), domain: JSON.parse(dVal) });
+    if (cleanUrl && domain) {
+        // get the values for the url and the domain
+        try {
+            client.get(cleanUrl, (err, uVal) => {
+                client.get(domain, (err, dVal) => {
+                    res.json({
+                        url: JSON.parse(uVal),
+                        domain: JSON.parse(dVal),
+                    });
+                });
             });
-        });
-    } catch (_) {
-        res.status(500).send("Database error");
+        } catch (_) {
+            res.status(500).send("Database error");
+        }
     }
 });
 

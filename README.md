@@ -105,7 +105,7 @@ If the exact page has not been visited, but another page on the same domain has,
 }
 ```
 
-If neither the page nor the domain has been visited, it will return `null` for both the `url` and `domain`.
+If neither the page nor the domain has been visited, it will return `null` for both.
 
 Providing new information is performed through a POST request:
 

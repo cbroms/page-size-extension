@@ -1,0 +1,10 @@
+.result__extras__url {
+	max-width: 60%;
+	flex-basis: content;
+}
+.result_size_badge {
+	padding: 0 5px;
+	margin: 0 5px;
+	background-color: #282828;
+	border-radius: 4px;
+}

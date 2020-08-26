@@ -35,6 +35,13 @@ const bytesToBestFitMetric = (bytes) => {
     }
 };
 
+const insertElements = (pElt, ...cElts) => {
+    console.log(cElts);
+    for (const cElt of cElts) {
+        pElt.insertAdjacentElement("afterend", cElt);
+    }
+};
+
 const checkAllResults = () => {
     const results = document.getElementsByClassName("result__url");
 
@@ -52,21 +59,26 @@ const checkAllResults = () => {
                     for (key in data.url.data) {
                         total += data.url.data[key].totalData;
                     }
-                    console.log(total);
-                    const disp = bytesToBestFitMetric(total);
-                    const badge = createBadge(disp);
-                    elt.parentNode.insertAdjacentElement("afterend", badge);
+
+                    insertElements(
+                        elt.parentNode,
+                        createBadge(bytesToBestFitMetric(total)),
+                        createBadge(bytesToBestFitMetric(total))
+                    );
                 } else if (data.domain) {
-                    // let total = 0;
-                    // for (key in data.domain.data) {
-                    //     total += data.domain.data[key].totalData;
-                    // }
-                    // const badge = createBadge(
-                    //     `Domain ${(data.domain.script.totalData / 1000).toFixed(
-                    //         2
-                    //     )} KB`
-                    // );
-                    // elt.parentNode.insertAdjacentElement("afterend", badge);
+                    insertElements(
+                        elt.parentNode,
+                        createBadge(
+                            `Scripts: ${bytesToBestFitMetric(
+                                data.domain.data.script.totalData
+                            )}`
+                        )
+                        // createBadge(
+                        //     `Style: ${bytesToBestFitMetric(
+                        //         data.domain.stylesheet.totalData
+                        //     )}`
+                        // )
+                    );
                 }
             });
     }
