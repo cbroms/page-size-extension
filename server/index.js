@@ -5,7 +5,10 @@ const redis = require("redis");
 const utils = require("./utils");
 
 const app = express();
-const client = redis.createClient();
+const client = redis.createClient({
+    host: process.env.REDIS_HOST || "127.0.0.1",
+    port: 6379,
+});
 
 const port = 3000;
 
@@ -102,7 +105,7 @@ app.post("/post_metrics", (req, res) => {
 
 // debug stuff
 app.listen(port, () => {
-    console.log(`Example app listening at http://localhost:${port}`);
+    console.log(`Listening at http://localhost:${port}`);
 });
 
 client.on("error", (error) => {

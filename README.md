@@ -145,6 +145,12 @@ Then, run the server:
 $ npm run dev
 ```
 
+Alternatively, you can run both the express app and Redis with docker compose:
+
+```
+$ docker-compose up
+```
+
 Install the extension temporarily by going to `about:debugging#/runtime/this-firefox` in Firefox. Click `Load Temporary Add-on...` and select `manifest.json` from the `/extension` directory of this repository.
 
 As you navigate around the web, your database will begin to populate with page sizes, and the extension will display the sizes of pages you've visited on SERP pages.
